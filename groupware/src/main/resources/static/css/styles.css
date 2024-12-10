@@ -37,6 +37,17 @@ body {
     font-size: 18px;
 }
 
+.sidebar ul li.active {
+    color: white;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sidebar ul li.active a {
+    color: black;
+}
+
 .main-content {
     flex-grow: 1;
     padding: 20px;

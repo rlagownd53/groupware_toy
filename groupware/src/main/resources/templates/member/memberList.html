@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="layout/header :: header"></div>
+
+<body>
+<div class="container">
+
+    <div th:replace="layout/side :: side"></div>
+
+    <main class="main-content">
+        <header class="header">
+            <h1>회원 관리</h1>
+            <button class="add-task">회원 추가</button>
+        </header>
+        <table class="task-list">
+            <thead>
+            <tr>
+                <th>회원명</th>
+                <th>ID</th>
+                <th>연락처</th>
+                <th>부서</th>
+                <th>직급</th>
+                <th>등록일</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="member : ${members}">
+<!--                    <td th:text="${member.id}"></td>-->
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
+
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".sidebar ul li").click(function() {
+            jQuery(".sidebar ul li").removeClass("active"); // 모든 li에서 active 제거
+            jQuery(this).addClass("active"); // 클릭한 li에 active 추가
+        });
+    });
+</script>
+</body>
+</html>

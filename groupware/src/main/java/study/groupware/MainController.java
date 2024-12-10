@@ -1,4 +1,4 @@
-package study.groupware.controller;
+package study.groupware;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
