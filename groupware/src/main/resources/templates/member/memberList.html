@@ -10,36 +10,39 @@
     <main class="main-content">
         <header class="header">
             <h1>회원 관리</h1>
-            <button class="add-task">회원 추가</button>
+            <button class="add-task" onclick="fn_regMember();">회원 추가</button>
         </header>
         <table class="task-list">
+            <colgroup>
+                <col width="15%"/>
+                <col width="10%"/>
+                <col width="15%"/>
+                <col width="15%"/>
+                <col width="5%"/>
+                <col width="20%"/>
+            </colgroup>
             <thead>
-            <tr>
-                <th>회원명</th>
-                <th>ID</th>
-                <th>연락처</th>
-                <th>부서</th>
-                <th>직급</th>
-                <th>등록일</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>이름</th>
+                    <th>연락처</th>
+                    <th>이메일</th>
+                    <th>상태</th>
+                    <th>등록일</th>
+                </tr>
             </thead>
             <tbody>
                 <tr th:each="member : ${members}">
-<!--                    <td th:text="${member.id}"></td>-->
+                    <td th:text="${member.loginId}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.phone}"></td>
+                    <td th:text="${member.email}"></td>
+                    <td th:text="${member.status}"></td>
+                    <td th:text="${member.regDate}"></td>
                 </tr>
             </tbody>
         </table>
     </main>
 </div>
-
-
-<script>
-    jQuery(document).ready(function() {
-        jQuery(".sidebar ul li").click(function() {
-            jQuery(".sidebar ul li").removeClass("active"); // 모든 li에서 active 제거
-            jQuery(this).addClass("active"); // 클릭한 li에 active 추가
-        });
-    });
-</script>
 </body>
 </html>

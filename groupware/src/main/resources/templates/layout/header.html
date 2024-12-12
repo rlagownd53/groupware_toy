@@ -5,7 +5,14 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>그룹웨어 - 작업 관리</title>
-    <link rel="stylesheet" href="/css/styles.css">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <script>
+        jQuery(document).on("click", ".sidebar ul li, .sidebar ul li a", function (event) {
+            jQuery(".sidebar ul li").removeClass("active");
+            jQuery(this).closest("li").addClass("active");
+        });
+    </script>
 </head>
 </html>
