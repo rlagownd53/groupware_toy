@@ -19,4 +19,10 @@ public class MemberController {
         model.addAttribute("members", memberRepository.memberList());
         return "member/memberList";
     }
+
+    @GetMapping("/member/joinMemberForm")
+    public String joinMemberForm(Model model, HttpServletRequest request) {
+        model.addAttribute("uri", request.getRequestURI());
+        return "member/joinMemberForm";
+    }
 }

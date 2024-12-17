@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <div th:replace="layout/header :: header"></div>
+    <head>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <style>
+            .input-form {
+                max-width: 680px;
+                padding: 32px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+
+            <div th:replace="layout/side :: side"></div>
+
+            <div class="row">
+                <div class="input-form col-md-12 mx-auto">
+                    <h4 class="mb-3">회원가입</h4>
+                    <form class="validation-form" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name">이름</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="" value="" required>
+                                <div class="invalid-feedback">
+                                    이름을 입력해주세요.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="loginId">아이디</label>
+                                <input type="text" class="form-control" id="loginId" name="loginId" placeholder="" value="" required>
+                                <div class="invalid-feedback">
+                                    아이디을 입력해주세요.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email">이메일</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="invalid-feedback">
+                                이메일을 입력해주세요.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="genderM" style="display: block;">성별</label>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="genderM" name="gender" required>
+                                <label class="form-check-label" for="genderM">남자</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="genderF" name="gender" required>
+                                <label class="form-check-label"for="genderF">여자</label>
+                            </div>
+                            <div class="invalid-feedback">
+                                성별을 체크해주세요.
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="zipCode" style="display: block;">주소</label>
+                            <input type="text" class="form-control" style="display: inline-block; width: 30%;" id="zipCode" required>
+                            <a onclick="fn_address();" class="btn btn-primary"
+                                    style="display: inline-block; width: 25%; height:38px; vertical-align: bottom;">검색</a>
+                            <div class="invalid-feedback">
+                                검색 버튼을 눌러 주소를 입력해 주세요.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="addr" style="display: block;">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                            <input type="text" class="form-control" id="addr" name="addr" style="width: 60%; display: inline-block;">
+                            <input type="text" class="form-control" id="addr_dtl" name="addr_dtl" style="width: 39%; display: inline-block;">
+                        </div>
+
+                        <hr class="mb-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="aggrement" required>
+                            <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+                        </div>
+                        <div class="mb-4"></div>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            function fn_address() {
+                daum.postcode.load(function() {
+                    var width = '565';
+                    var height = '580';
+                    new daum.Postcode({
+                        width: width, //생성자에 크기 값을 명시적으로 지정해야 합니다.
+                        height: height,
+                        animation : true,
+                        oncomplete: function(data) {
+                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                            jQuery("#zipCode").val(data.zonecode);
+                            jQuery("#addr").val(data.roadAddress);
+                            if(data.roadAddress != ''){ // 도로명주소 선택안함으로 선택하였을 경우 도로명주소의 건물이름 표기 안함.
+                                jQuery("#addr").val(data.buildingName); // 건물이름 - 도로명
+                            }
+                        }
+                    }).open({
+                        // 팝업이름
+                        popupName: 'postcodePopup',
+                        // 위치조정
+                        left: (window.screen.width / 2) - (width / 2),
+                        top: (window.screen.height / 2) - (height / 2)
+                    });
+                })
+            }
+            window.addEventListener('load', () => {
+                const forms = document.getElementsByClassName('validation-form');
+
+                Array.prototype.filter.call(forms, (form) => {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        </script>
+    </body>
+</html>
