@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="input-form col-md-12 mx-auto">
                     <h4 class="mb-3">회원가입</h4>
-                    <form class="validation-form" novalidate>
+                    <form class="validation-form" novalidate onsubmit="return submitChk();">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name">이름</label>
@@ -33,6 +33,43 @@
                                 <div class="invalid-feedback">
                                     아이디을 입력해주세요.
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone1" style="display: block;">연락처</label>
+                            <select id="phone1" name="phone1" class="custom-select" style="display: inline-block; width: 24%;" required>
+                                <option value="">선택</option>
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                                <option value="019">019</option>
+                                <option value="02">02</option>
+                                <option value="031">031</option>
+                                <option value="032">032</option>
+                                <option value="033">033</option>
+                                <option value="041">041</option>
+                                <option value="042">042</option>
+                                <option value="043">043</option>
+                                <option value="044">044</option>
+                                <option value="051">051</option>
+                                <option value="052">052</option>
+                                <option value="053">053</option>
+                                <option value="054">054</option>
+                                <option value="055">055</option>
+                                <option value="061">061</option>
+                                <option value="062">062</option>
+                                <option value="063">063</option>
+                                <option value="064">064</option>
+                            </select> -
+                            <input type="text" id="phone2" name="phone2" class="form-control" style="display: inline-block; width: 35%;" required> -
+                            <input type="text" id="phone3" name="phone3" class="form-control" style="display: inline-block; width: 35%;" required>
+
+
+                            <input type="hidden" id="phone" name="phone"/>
+                            <div class="invalid-feedback">
+                                연락처를 입력해주세요.
                             </div>
                         </div>
 
@@ -76,13 +113,11 @@
                             <input type="text" class="form-control" id="addr_dtl" name="addr_dtl" style="width: 39%; display: inline-block;">
                         </div>
 
-                        <hr class="mb-4">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="aggrement" required>
-                            <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-                        </div>
                         <div class="mb-4"></div>
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button class="btn btn-primary me-md-2" type="submit">가입 완료</button>
+                            <button class="btn btn-secondary ml-1" type="button" onclick="fn_cancel();">취소</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -127,6 +162,19 @@
                     }, false);
                 });
             }, false);
+
+            function fn_cancel() {
+                window.location.href = '/member/memberList';
+            }
+
+            function submitChk() {
+                var phone = document.getElementById('phone1').value+"-"+document.getElementById('phone2').value+"-"+document.getElementById('phone3').value;
+
+                document.getElementById('phone').value = phone;
+
+                return confirm("등록하시겠습니까?");
+            }
+
         </script>
     </body>
 </html>

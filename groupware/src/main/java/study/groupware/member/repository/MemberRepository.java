@@ -21,4 +21,8 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
+//    public int joinMember(Member member) {
+//
+//    }
+
 }
