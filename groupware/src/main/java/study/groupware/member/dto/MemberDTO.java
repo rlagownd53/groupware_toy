@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter @Setter
 public class MemberDTO {
-
+    private int memberId;
     private String name;
     private String loginId;
     private String email;
@@ -19,4 +19,5 @@ public class MemberDTO {
     private String zipCode;
     private String addr;
     private String addr_dtl;
+    private LocalDateTime updateDate;
 }

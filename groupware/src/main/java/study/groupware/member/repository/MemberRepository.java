@@ -17,12 +17,11 @@ public class MemberRepository {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    public Member findById(Long id) {
+    public Member findById(int id) {
         return em.find(Member.class, id);
     }
 
-//    public int joinMember(Member member) {
-//
-//    }
-
+    public void saveMember(Member member) {
+        em.persist(member);
+    }
 }

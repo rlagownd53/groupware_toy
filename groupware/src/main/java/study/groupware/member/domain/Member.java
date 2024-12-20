@@ -26,10 +26,12 @@ public class Member {
     private String phone;
     private String email;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private MemberStatus status;
 
     @Embedded
     private Address addr;
 
     private LocalDateTime regDate;
+    private LocalDateTime updateDate;
 }

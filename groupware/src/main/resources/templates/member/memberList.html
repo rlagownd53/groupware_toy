@@ -34,11 +34,17 @@
             <tbody>
                 <tr th:each="member : ${members}">
                     <td th:text="${member.loginId}"></td>
-                    <td th:text="${member.name}"></td>
+                    <td>
+                        <a th:href="@{'/member/' + ${member.memberId} + '/memberEdit'}" th:text="${member.loginId}"></a>
+                    </td>
                     <td th:text="${member.phone}"></td>
                     <td th:text="${member.email}"></td>
-                    <td th:text="${member.status}"></td>
-                    <td th:text="${member.regDate}"></td>
+                    <td th:switch="${#strings.trim(member.status)}">
+                        <span th:case="WAIT">가입대기</span>
+                        <span th:case="APPROVE">승인</span>
+                        <span th:case="LEAVE">탈퇴</span>
+                    </td>
+                    <td th:text="${#temporals.format(member.regDate, 'yyyy-MM-dd HH:mm')}"></td>
                 </tr>
             </tbody>
         </table>

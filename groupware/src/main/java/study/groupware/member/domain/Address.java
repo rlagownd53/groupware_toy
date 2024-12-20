@@ -2,9 +2,10 @@ package study.groupware.member.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
-@Getter
+@Getter @Setter
 public class Address {
 
     private String zipCode;

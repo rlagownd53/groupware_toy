@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="input-form col-md-12 mx-auto">
                     <h4 class="mb-3">회원가입</h4>
-                    <form class="validation-form" novalidate onsubmit="return submitChk();">
+                    <form class="validation-form" novalidate onsubmit="return submitChk();" method="post">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name">이름</label>
@@ -63,8 +63,10 @@
                                 <option value="063">063</option>
                                 <option value="064">064</option>
                             </select> -
-                            <input type="text" id="phone2" name="phone2" class="form-control" style="display: inline-block; width: 35%;" required> -
-                            <input type="text" id="phone3" name="phone3" class="form-control" style="display: inline-block; width: 35%;" required>
+                            <input type="text" id="phone2" name="phone2" onkeyup="validateNumberInput(this)" maxlength="4"
+                                   class="form-control" style="display: inline-block; width: 35%;" required> -
+                            <input type="text" id="phone3" name="phone3" onkeyup="validateNumberInput(this)" maxlength="4"
+                                   class="form-control" style="display: inline-block; width: 35%;" required>
 
 
                             <input type="hidden" id="phone" name="phone"/>
@@ -84,11 +86,11 @@
                         <div class="mb-3">
                             <label for="genderM" style="display: block;">성별</label>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="genderM" name="gender" required>
+                                <input type="radio" class="form-check-input" id="genderM" name="gender" value="M" required>
                                 <label class="form-check-label" for="genderM">남자</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="genderF" name="gender" required>
+                                <input type="radio" class="form-check-input" id="genderF" name="gender" value="F" required>
                                 <label class="form-check-label"for="genderF">여자</label>
                             </div>
                             <div class="invalid-feedback">
@@ -99,7 +101,7 @@
 
                         <div class="mb-3">
                             <label for="zipCode" style="display: block;">주소</label>
-                            <input type="text" class="form-control" style="display: inline-block; width: 30%;" id="zipCode" required>
+                            <input type="text" class="form-control" style="display: inline-block; width: 30%;" id="zipCode" name="zipCode" required>
                             <a onclick="fn_address();" class="btn btn-primary"
                                     style="display: inline-block; width: 25%; height:38px; vertical-align: bottom;">검색</a>
                             <div class="invalid-feedback">
@@ -108,8 +110,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="addr" style="display: block;">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
-                            <input type="text" class="form-control" id="addr" name="addr" style="width: 60%; display: inline-block;">
+                            <label for="roadAddr" style="display: block;">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                            <input type="text" class="form-control" id="roadAddr" name="addr" style="width: 60%; display: inline-block;">
                             <input type="text" class="form-control" id="addr_dtl" name="addr_dtl" style="width: 39%; display: inline-block;">
                         </div>
 
@@ -134,8 +136,8 @@
                         oncomplete: function(data) {
                             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
                             jQuery("#zipCode").val(data.zonecode);
-                            jQuery("#addr").val(data.roadAddress);
-                            if(data.roadAddress != ''){ // 도로명주소 선택안함으로 선택하였을 경우 도로명주소의 건물이름 표기 안함.
+                            jQuery("#roadAddr").val(data.roadAddress);
+                            if(data.roadAddress !== ''){ // 도로명주소 선택안함으로 선택하였을 경우 도로명주소의 건물이름 표기 안함.
                                 jQuery("#addr").val(data.buildingName); // 건물이름 - 도로명
                             }
                         }
@@ -168,13 +170,19 @@
             }
 
             function submitChk() {
-                var phone = document.getElementById('phone1').value+"-"+document.getElementById('phone2').value+"-"+document.getElementById('phone3').value;
-
-                document.getElementById('phone').value = phone;
+                document.getElementById('phone').value = document.getElementById('phone1').value + "-" + document.getElementById('phone2').value + "-" + document.getElementById('phone3').value;
 
                 return confirm("등록하시겠습니까?");
             }
 
+            function validateNumberInput(obj) {
+                let value = document.getElementById(obj.id).value;
+
+                if (!/^\d*$/.test(value)) {
+                    alert("숫자만 입력 가능합니다.");
+                    document.getElementById(obj.id).value = "";
+                }
+            }
         </script>
     </body>
 </html>
